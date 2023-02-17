@@ -33,7 +33,8 @@ export const useUserStore = defineStore({
         getLogin(data)
           .then(data => {
             if (data) {
-              setToken(data.data);
+              // setToken(data);
+              storageSession().setItem("user", data);
               resolve(data);
             }
           })

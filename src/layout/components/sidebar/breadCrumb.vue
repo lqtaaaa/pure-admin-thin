@@ -45,12 +45,12 @@ const getBreadcrumb = (): void => {
     if (path !== "/") matched.push(findRouteByPath(path, routes));
   });
 
-  if (currentRoute?.path !== "/welcome") matched.push(currentRoute);
+  if (currentRoute?.path !== "/main") matched.push(currentRoute);
 
   if (!isDashboard(matched[0])) {
     matched = [
       {
-        path: "/welcome",
+        path: "/main",
         parentPath: "/",
         meta: { title: "首页" }
       } as unknown as RouteLocationMatched

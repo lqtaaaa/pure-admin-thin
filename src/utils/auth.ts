@@ -15,7 +15,7 @@ export interface DataInfo<T> {
   roles?: Array<string>;
 }
 
-export const sessionKey = "user-info";
+export const sessionKey = "user";
 export const TokenKey = "authorized-token";
 
 /** 获取`token` */

@@ -4,17 +4,18 @@ export default {
   path: "/",
   name: "Home",
   component: Layout,
-  redirect: "/welcome",
+  redirect: "/main",
   meta: {
     icon: "homeFilled",
     title: "首页",
-    rank: 0
+    rank: 0,
+    showLink: false
   },
   children: [
     {
-      path: "/welcome",
-      name: "Welcome",
-      component: () => import("@/views/welcome/index.vue"),
+      path: "/main",
+      name: "Main",
+      component: () => import("@/views/main/index.vue"),
       meta: {
         title: "首页"
       }

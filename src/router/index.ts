@@ -130,32 +130,18 @@ router.beforeEach((to: toRouteType, _from, next) => {
         openLink(to?.name as string);
         NProgress.done();
       } else {
-        toCorrectRoute();
+        if (!constantRoutes[0]?.children?.find((item) => item.path === to.fullPath)) {
+          next('/error/404');
+        } else {
+          toCorrectRoute();
+        }
       }
     } else {
       // 刷新
-      if (
-        usePermissionStoreHook().wholeMenus.length === 0 &&
-        to.path !== "/login"
-      )
-        initRouter().then((router: Router) => {
-          if (!useMultiTagsStoreHook().getMultiTagsCache) {
-            const { path } = to;
-            const route = findRouteByPath(
-              path,
-              router.options.routes[0].children
-            );
-            // query、params模式路由传参数的标签页不在此处处理
-            if (route && route.meta?.title) {
-              useMultiTagsStoreHook().handleTags("push", {
-                path: route.path,
-                name: route.name,
-                meta: route.meta
-              });
-            }
-          }
-          router.push(to.fullPath);
-        });
+      if ( usePermissionStoreHook().wholeMenus.length === 0 && to.path !== "/login") {
+        usePermissionStoreHook().handleWholeMenus([]);
+        // next({ path: "/error/404" });
+      }
       toCorrectRoute();
     }
   } else {

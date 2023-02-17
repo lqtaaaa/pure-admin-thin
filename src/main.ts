@@ -21,6 +21,8 @@ import "element-plus/dist/index.css";
 // 导入字体图标
 import "./assets/iconfont/iconfont.js";
 import "./assets/iconfont/iconfont.css";
+import "./assets/custom-icon/iconfont.js";
+import "./assets/custom-icon/iconfont.css";
 
 const app = createApp(App);
 

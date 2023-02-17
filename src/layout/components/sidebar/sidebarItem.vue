@@ -237,8 +237,13 @@ function resolvePath(routePath) {
   >
     <template #title>
       <div v-if="toRaw(props.item.meta.icon)" class="sub-menu-icon">
-        <component
-          :is="useRenderIcon(props.item.meta && toRaw(props.item.meta.icon))"
+<!--        <component-->
+<!--          :is="useRenderIcon(props.item.meta && toRaw(props.item.meta.icon))"-->
+<!--        />-->
+        <FontIcon
+          width="30px"
+          height="30px"
+          :icon="props.item.meta.icon"
         />
       </div>
       <span v-if="layout === 'horizontal'">

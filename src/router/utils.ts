@@ -195,11 +195,11 @@ function handleAsyncRoutes(routeList) {
 function initRouter() {
   if (getConfig()?.CachingAsyncRoutes) {
     // 开启动态路由缓存本地sessionStorage
-    const key = "async-routes";
-    const asyncRouteList = storageSession().getItem(key) as any;
-    if (asyncRouteList && asyncRouteList?.length > 0) {
+    const key = "user";
+    const userInfo = storageSession().getItem(key) as any;
+    if (userInfo.data.rolePermis && userInfo.data.rolePermis?.length > 0) {
       return new Promise(resolve => {
-        handleAsyncRoutes(asyncRouteList);
+        handleAsyncRoutes(userInfo.data.rolePermis);
         resolve(router);
       });
     } else {

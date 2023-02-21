@@ -4,7 +4,7 @@ import { userType } from "./types";
 import { routerArrays } from "@/layout/types";
 import { router, resetRouter } from "@/router";
 import { storageSession } from "@pureadmin/utils";
-import { getLogin, refreshTokenApi } from "@/api/user";
+import { getLogin, loginSysOut, refreshTokenApi } from "@/api/user";
 import { UserResult, RefreshTokenResult } from "@/api/user";
 import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
 import { type DataInfo, setToken, removeToken, sessionKey } from "@/utils/auth";
@@ -28,15 +28,15 @@ export const useUserStore = defineStore({
       this.roles = roles;
     },
     /** 登入 */
-    async loginByUsername(data) {
+    async loginByUsername(params) {
       return new Promise<UserResult>((resolve, reject) => {
-        getLogin(data)
+        getLogin(params)
           .then(data => {
-            if (data) {
+            if (data.status === 200) {
               // setToken(data);
-              storageSession().setItem("user", data);
-              resolve(data);
+              storageSession().setItem("user", data.data);
             }
+            resolve(data);
           })
           .catch(error => {
             reject(error);
@@ -44,7 +44,9 @@ export const useUserStore = defineStore({
       });
     },
     /** 前端登出（不调用接口） */
-    logOut() {
+    async logOut() {
+      const data = await loginSysOut()
+      console.log('logout',data)
       this.username = "";
       this.roles = [];
       removeToken();

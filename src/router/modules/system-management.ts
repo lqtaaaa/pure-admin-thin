@@ -11,7 +11,7 @@ export default {
     {
       path: "/system/dict",
       name: "DictionaryProperties",
-      component: () => import("@/views/system-management/dictionary-properties/index.vue"),
+      component: () => import("@/views/system/dict/index.vue"),
       meta: {
         title: "字典属性",
         showParent: true
@@ -20,7 +20,7 @@ export default {
     {
       path: "/system/role",
       name: "RoleManagement",
-      component: () => import("@/views/system-management/role-management/index.vue"),
+      component: () => import("@/views/system/role/index.vue"),
       meta: {
         title: "角色管理",
         showParent: true
@@ -29,7 +29,7 @@ export default {
     {
       path: "/system/menu",
       name: "MenuList",
-      component: () => import("@/views/system-management/menu-list/index.vue"),
+      component: () => import("@/views/system/menu/index.vue"),
       meta: {
         title: "菜单列表",
         showParent: true
@@ -38,7 +38,7 @@ export default {
     {
       path: "/system/chart",
       name: "StatisticsChart",
-      component: () => import("@/views/system-management/statistical-chart/index.vue"),
+      component: () => import("@/views/system/chart/index.vue"),
       meta: {
         title: "统计图表",
         showParent: true
@@ -47,7 +47,7 @@ export default {
     {
       path: "/system/log",
       name: "LoginLog",
-      component: () => import("@/views/system-management/login-log/index.vue"),
+      component: () => import("@/views/system/log/index.vue"),
       meta: {
         title: "登录日志",
         showParent: true
@@ -56,7 +56,7 @@ export default {
     {
       path: "/system/record",
       name: "OperationRecord",
-      component: () => import("@/views/system-management/operation-record/index.vue"),
+      component: () => import("@/views/system/record/index.vue"),
       meta: {
         title: "操作记录",
         showParent: true

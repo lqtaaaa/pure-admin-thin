@@ -1,4 +1,5 @@
 import { http } from "@/utils/http";
+import { baseUrlSystem } from "@/api/util";
 /*Children*/
 export class Children {
   id: string;
@@ -45,8 +46,12 @@ export type RefreshTokenResult = {
 };
 
 /** 登录 */
-export const getLogin = (data?: object) => {
-  return http.request<UserResult>("post", "/login", { data });
+export const getLogin = (params?: object) => {
+  return http.request<UserResult>("get", baseUrlSystem("LoginApi/v1/login"), { params });
+};
+// 退出登录
+export const loginSysOut = (params?: object) => {
+  return http.request<UserResult>("get", baseUrlSystem("LoginApi/v1/loginSysOut"), { params });
 };
 
 /** 刷新token */

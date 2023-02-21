@@ -11,7 +11,7 @@ export default {
     {
       path: "/task/index",
       name: "TaskQuery",
-      component: () => import("@/views/task-query/index.vue"),
+      component: () => import("@/views/task/index.vue"),
       meta: {
         title: "综合查询",
         showParent: true

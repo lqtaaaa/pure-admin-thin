@@ -3,11 +3,11 @@ import Motion from "./utils/motion";
 import { useRouter } from "vue-router";
 import { message } from "@/utils/message";
 import { loginRules } from "./utils/rule";
-// import { initRouter } from "@/router/utils";
+import { initRouter } from "@/router/utils";
 import { useNav } from "@/layout/hooks/useNav";
 import type { FormInstance } from "element-plus";
 import { useLayout } from "@/layout/hooks/useLayout";
-// import { useUserStoreHook } from "@/store/modules/user";
+import { useUserStoreHook } from "@/store/modules/user";
 import { bg, avatar, illustration } from "./utils/static";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import { ref, reactive, toRaw, onMounted, onBeforeUnmount } from "vue";
@@ -35,8 +35,8 @@ dataThemeChange();
 const { title } = useNav();
 
 const ruleForm = reactive({
-  username: "admin",
-  password: "admin123"
+  userCode: "jy00001",
+  pass: "000000"
 });
 
 const onLogin = async (formEl: FormInstance | undefined) => {
@@ -44,26 +44,28 @@ const onLogin = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
-      // useUserStoreHook()
-      //   .loginByUsername({ username: ruleForm.username, password: "admin123" })
-      //   .then(res => {
-      //     if (res.status === 200) {
-      //       // 获取后端路由
-      //       initRouter().then(() => {
-      //         router.push("/");
-      //         message("登录成功", { type: "success" });
-      //       });
-      //     }
-      //   });
-      // 全部采取静态路由模式
-      usePermissionStoreHook().handleWholeMenus([]);
-      setToken({
-        username: "admin",
-        roles: ["admin"],
-        accessToken: "eyJhbGciOiJIUzUxMiJ9.admin"
-      } as any);
-      router.push("/");
-      message("登录成功", { type: "success" });
+      useUserStoreHook()
+        .loginByUsername({ userCode: ruleForm.userCode, pass: ruleForm.pass })
+        .then(res => {
+          if (res.status === 200) {
+            // 获取后端路由
+            initRouter().then(() => {
+              router.push("/");
+              message("登录成功", { type: "success" });
+            });
+          } else {
+            message(res.msg, { type: "error" });
+          }
+        });
+      // // 全部采取静态路由模式
+      // usePermissionStoreHook().handleWholeMenus([]);
+      // setToken({
+      //   userCode: "admin",
+      //   roles: ["admin"],
+      //   accessToken: "eyJhbGciOiJIUzUxMiJ9.admin"
+      // } as any);
+      // router.push("/");
+      // message("登录成功", { type: "success" });
     } else {
       loading.value = false;
       return fields;
@@ -126,11 +128,11 @@ onBeforeUnmount(() => {
                     trigger: 'blur'
                   }
                 ]"
-                prop="username"
+                prop="userCode"
               >
                 <el-input
                   clearable
-                  v-model="ruleForm.username"
+                  v-model="ruleForm.userCode"
                   placeholder="账号"
                   :prefix-icon="useRenderIcon(User)"
                 />
@@ -138,11 +140,12 @@ onBeforeUnmount(() => {
             </Motion>
 
             <Motion :delay="150">
-              <el-form-item prop="password">
+              <el-form-item prop="pass">
                 <el-input
                   clearable
                   show-password
-                  v-model="ruleForm.password"
+                  type="password"
+                  v-model="ruleForm.pass"
                   placeholder="密码"
                   :prefix-icon="useRenderIcon(Lock)"
                 />

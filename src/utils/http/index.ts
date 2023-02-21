@@ -21,7 +21,11 @@ const defaultConfig: AxiosRequestConfig = {
   headers: {
     Accept: "application/json, text/plain, */*",
     "Content-Type": "application/json",
-    "X-Requested-With": "XMLHttpRequest"
+    "X-Requested-With": "XMLHttpRequest",
+    "Access-Control-Max-Age": '1209600',
+    'Access-Control-Allow-Headers':
+      'Authorization,Origin, X-Requested-With, Content-Type, Accept',
+    'Access-Control-Allow-Methods': 'GET,POST',
   },
   // 数组格式参数序列化（https://github.com/axios/axios/issues/5142）
   paramsSerializer: {
@@ -42,7 +46,8 @@ class PureHttp {
   private static isRefreshing = false;
 
   /** 初始化配置对象 */
-  private static initConfig: PureHttpRequestConfig = {};
+  private static initConfig: PureHttpRequestConfig = {
+  };
 
   /** 保存当前Axios实例对象 */
   private static axiosInstance: AxiosInstance = Axios.create(defaultConfig);

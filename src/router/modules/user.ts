@@ -11,7 +11,7 @@ export default {
     {
       path: "/user/userList",
       name: "UserList",
-      component: () => import("@/views/user/user-list/index.vue"),
+      component: () => import("@/views/user/userList/index.vue"),
       meta: {
         title: "用户列表",
         showParent: true
@@ -20,7 +20,7 @@ export default {
     {
       path: "/user/orgList",
       name: "CustomerOrganizationList",
-      component: () => import("@/views/user/customer-organization-list/index.vue"),
+      component: () => import("@/views/user/orgList/index.vue"),
       meta: {
         title: "客户机构列表",
         showParent: true

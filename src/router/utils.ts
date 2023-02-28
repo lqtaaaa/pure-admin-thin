@@ -203,13 +203,14 @@ function initRouter() {
         resolve(router);
       });
     } else {
-      return new Promise(resolve => {
-        getAsyncRoutes().then(({ data }) => {
-          handleAsyncRoutes(cloneDeep(data));
-          storageSession().setItem(key, data);
-          resolve(router);
-        });
-      });
+      // return new Promise(resolve => {
+      //   getAsyncRoutes().then(({ data }) => {
+      //     handleAsyncRoutes(cloneDeep(data));
+      //     storageSession().setItem(key, data);
+      //     resolve(router);
+      //   });
+      // });
+      router.push("/login");
     }
   } else {
     return new Promise(resolve => {

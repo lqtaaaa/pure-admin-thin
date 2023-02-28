@@ -34,6 +34,7 @@ export const useUserStore = defineStore({
           .then(data => {
             if (data.status === 200) {
               // setToken(data);
+              useUserStoreHook().SET_USERNAME(data.data.username);
               storageSession().setItem("user", data.data);
             }
             resolve(data);

@@ -27,5 +27,16 @@ export default [
         component: () => import("@/layout/redirect.vue")
       }
     ]
+  },
+  // 外部跳转页面
+  {
+    path: "/web/transferList",
+    name: "TransferList",
+    component: () => import("@/views/web/transferList/index.vue"),
+    meta: {
+      title: "任务列表",
+      showLink: false,
+      rank: 103
+    }
   }
 ] as Array<RouteConfigsTable>;

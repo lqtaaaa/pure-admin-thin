@@ -17,7 +17,7 @@ export class RolePermis {
 }
 
 /*Data*/
-export class Data {
+export type Data  = {
   id: string;
   password: string;
   roleName: string;

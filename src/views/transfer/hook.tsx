@@ -1,4 +1,4 @@
-import { reactive, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { type PaginationProps } from "@pureadmin/table";
 import dayjs from "dayjs";
 import { findTransferByPage } from "@/api/transfer";
@@ -64,13 +64,22 @@ export function useTransfer() {
     Loading.value = true
     form.reportCode = form.reportCode.trim()
     const params = {
-      keyword: form.reportCode,
-      currentPage: pagination.currentPage,
+      reportCode: form.reportCode,
+      startPage: pagination.currentPage,
       pageSize: pagination.pageSize,
     }
     const res = await findTransferByPage(params)
-    dataList.value = res.data
-    pagination.total = res.total
+    dataList.value = [
+      {
+        "createDate": 1578881633000,
+        "dealPersonName": "法医内部测试",
+        "id": "cff5b6967eed42e2b500298ecfff48e5",
+        "injureName": "测试",
+        "reportCode": "1",
+        "taskState": "已受理"
+      }
+    ]
+    pagination.total = 1
     setTimeout(() => {
       Loading.value = false
     },500)
@@ -84,6 +93,9 @@ export function useTransfer() {
   function handleCurrentChange(val) {
     console.log("-> val", val);
   }
+  onMounted(() => {
+    handleSearch()
+  })
   // 查询
   return {
     form,

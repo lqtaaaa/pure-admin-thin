@@ -3,12 +3,13 @@ import { useTransfer } from "@/views/transfer/hook";
 import { ref } from "vue";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import Search from "@iconify-icons/ep/search";
-import { PureTableBar } from "@/components/RePureTableBar";
-import { columns } from "stylelint-order/rules/shorthandData";
+import DialogTable from "./components/dialogTable.vue";
 defineOptions({
   name: "Transfer"
 });
 const transferFormRef = ref(null);
+const visible = ref(false);
+const selectId = ref();
 const {
   form,
   handleSearch,
@@ -20,6 +21,10 @@ const {
   handleSizeChange,
   handleCurrentChange
 } = useTransfer();
+function handleTaskTransfer(row) {
+  visible.value = true;
+  selectId.value = row.id;
+}
 </script>
 
 <template>
@@ -47,23 +52,26 @@ const {
         >查询</el-button>
       </el-form-item>
     </el-form>
-    <pure-table
-      border
-      align-whole="center"
-      showOverflowTooltip
-      table-layout="auto"
-      :loading="Loading"
-      :data="dataList"
-      :columns="columns"
-      :pagination="pagination"
-      @selection-change="handleSelectionChange"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-    >
-      <template #action="{row}">
-        <el-button type="success" round>任务转交</el-button>
-      </template>
-    </pure-table>
+    <div class="w-[99/100] mt-6 p-2 bg-bg_color">
+      <pure-table
+        border
+        align-whole="center"
+        showOverflowTooltip
+        table-layout="auto"
+        :loading="Loading"
+        :data="dataList"
+        :columns="columns"
+        :pagination="pagination"
+        @selection-change="handleSelectionChange"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      >
+        <template #action="{row}">
+          <el-button type="success" round @click="handleTaskTransfer">任务转交</el-button>
+        </template>
+      </pure-table>
+    </div>
+    <DialogTable v-model:visible="visible" :select-id="selectId"></DialogTable>
   </div>
 </template>
 
